@@ -1,12 +1,11 @@
 from flask import Flask, request, render_template
+from flask_sqlalchemy import SQLAlchemy
 from wtforms import StringField, SelectField, SubmitField
 from wtforms.fields.html5 import DateField
 from wtforms.validators import Required
 from flask_wtf import FlaskForm
 from datetime import *
 import numpy as np
-
-from flask_sqlalchemy import SQLAlchemy
  
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] ='mysql+pymysql://testuser:testpassword@localhost/expenses'
