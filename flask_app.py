@@ -1,16 +1,21 @@
 from flask import Flask, request, render_template
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import desc
 from wtforms import StringField, SelectField, SubmitField
 from wtforms.fields.html5 import DateField
 from wtforms.validators import Required
 from flask_wtf import FlaskForm
 from datetime import *
 import numpy as np
+
+from datamodel import *
  
 app = Flask(__name__)
+app.app_context().push() # this is to prevent context errors
+
 app.config['SQLALCHEMY_DATABASE_URI'] ='mysql+pymysql://testuser:testpassword@localhost/expenses'
 app.config['SQLALCHEMY_COMMIT_ON_TEARDOWN'] = True
-db = SQLAlchemy(app)
+db.init_app(app)
 
 app.config['SECRET_KEY'] = 'hard to guess string'
 
@@ -31,7 +36,14 @@ def expenser():
     if form.is_submitted():
         descr = form.description.data
         form.description.data = ''
-    return render_template('expenser.html', table=[[1.1,2.1,3.1], [10,20,30], [100,200,3000]], form=form, descr=descr)
+
+    table = []
+    cashflows = Cashflow.query.order_by(desc(Cashflow.date)).all()
+    for cf in cashflows:
+        row = [cf.amount, cf.date, cf.description, cf.category.name]
+        table.append(row)
+    print(type(table), len(table))
+    return render_template('expenser.html', table=table, form=form, descr=descr)
 
 if __name__ == '__main__':
     app.run(debug=True)
