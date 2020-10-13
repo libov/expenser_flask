@@ -32,7 +32,7 @@
 
             /* Style the tab content (and add height:100% for full page content) */
             .tabcontent {
-              color: white;
+              /*color: white;*/
               display: none;
               padding: 100px 20px;
               height: 100%;
@@ -63,9 +63,10 @@
         <h1>Expenses</h1>
         <table style="height:100%" >
             <tr>
-                <th>a</th>
-                <th>b</th>
-                <th>c</th>
+                <th>Amount</th>
+                <th>Date</th>
+                <th>Description</th>
+                <th>Category</th>
             </tr>
 
             {% for row in table %}
