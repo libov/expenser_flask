@@ -65,7 +65,6 @@ def migrate_database():
         cf = Cashflow(amount=amount, description=description, booked=booked, date=datetime.date(year, month, day), category=cat)
 
         db.session.add(cf)
-        print("added ", amount)
 
 if __name__ == '__main__':
 
