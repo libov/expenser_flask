@@ -1,0 +1,81 @@
+{% extends "bootstrap/base.html" %}
+
+{% block title %}The Expenser App{% endblock %}
+
+{% block navbar %}
+    <div class="navbar navbar-inverse" role="navigation">
+    <!--div class="navbar navbar-fixed-top"-->
+    
+        <div class="container">
+
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar">dd</span>
+                    <span class="icon-bar"dd></span>
+                    <span class="icon-bar">dd</span>
+                </button>
+                <a class="navbar-brand" href="/expenser">Expenser</a>
+            </div>
+
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li><a href="/expenser">Cashflows</a></li>
+                    <li><a href="/">Analysis</a></li>
+                    <li><a href={{url_for('bla')}}>c</a></li>
+                </ul>
+            </div>
+
+        </div>
+    </div>
+{% endblock %}
+
+{% block content %}
+
+    <div class="container-fluid">
+    <!--div class="container"-->
+        <div class="page-header">
+            <h1>Expenses</h1>
+        </div>
+    
+        {% for message in get_flashed_messages() %}
+        <div class="alert alert-warning">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            {{ message }}
+        </div>
+        {% endfor %}
+    
+        <form method="POST">
+            {{ form.amount.label }} {{ form.amount() }}
+            {{ form.description.label }} {{ form.description() }}
+            {{ form.category.label }} {{ form.category() }}
+            {{ form.date.label }} {{ form.date() }}
+            {{ form.booked.label }} {{ form.booked() }}
+            {{ form.submit() }}
+        </form>
+        <hr>
+        <table class="table table-striped" >
+        <thead class="thead-dark">
+        <tr>
+            <th>Amount</th>
+            <th>Description</th>
+            <th>Category</th>
+            <th>Date</th>
+            <th>Booked</th>
+        </tr>
+
+        </thead>
+        <tbody>
+        {% for row in table %}
+        <tr>
+            {% for cell in row %}
+            <td>{{ cell }}</td>
+            {% endfor %}
+        </tr>
+        {% endfor %}
+        </tbody>
+        </table>
+    
+    </div>
+
+{% endblock %}
