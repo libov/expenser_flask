@@ -13,17 +13,29 @@
         <button class="tablink" onclick="openPage('Incomes', this, 'blue')">Incomes</button>
 
         <div id="New_Expense" class="tabcontent">
+        
+        <div class="container">
+        
+{% for message in get_flashed_messages() %}
+<div class="alert alert-warning">
+<button type="button" class="close" data-dismiss="alert">&times;</button>
+{{ message }}
+</div>
+{% endfor %}
+{% block page_content %}{% endblock %}
+</div>
+        
             <form method="POST">
+                {{ form.amount.label }} {{ form.amount() }}
                 {{ form.description.label }} {{ form.description() }}
                 {{ form.category.label }} {{ form.category() }}
                 {{ form.date.label }} {{ form.date() }}
+                {{ form.booked.label }} {{ form.booked() }}
                 {{ form.submit() }}
                 {% if descr %}<h1>Succesfully submitted: {{ descr }}, {{ form.category.data }}, {{ form.date.data }} !</h1>{% else %}{% endif %}
             </form>
-        </div>
-
-        <div id="Expenses" class="tabcontent">
-        <h1>Expenses</h1>
+            
+                    <h1>Expenses</h1>
         <table style="height:100%" >
             <tr>
                 <th>Amount</th>
@@ -40,6 +52,11 @@
                 </tr>
             {% endfor %}
         </table>
+            
+        </div>
+
+        <div id="Expenses" class="tabcontent">
+
         </div>
 
         <div id="Incomes" class="tabcontent">
