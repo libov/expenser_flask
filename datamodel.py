@@ -22,7 +22,7 @@ class Cashflow(db.Model):
     description = db.Column(db.String(256), nullable=False)
     amount = db.Column(db.Float(precision=2), nullable=False)
     date = db.Column(db.Date, nullable=False)
-    booked = db.Column(db.Boolean, nullable=False)
+    booked = db.Column(db.Boolean, nullable=False, default=False)
     category_id = db.Column(db.Integer, db.ForeignKey('CATEGORY.id'), nullable=False)
 
     def __repr__(self):
