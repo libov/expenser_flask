@@ -1,5 +1,6 @@
 {% extends "bootstrap/base.html" %}
 {% import "bootstrap/wtf.html" as wtf %}
+{% import "_macros.html" as macros %}
 
 {% block title %}The Expenser App{% endblock %}
 
@@ -77,7 +78,11 @@
         {% endfor %}
         </tbody>
         </table>
-    
+
+        <div class="pagination">
+            {{ macros.pagination_widget(pagination, '.expenser') }}
+        </div>
+
     </div>
 
 {% endblock %}
