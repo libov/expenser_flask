@@ -3,7 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import desc
 from wtforms import StringField, SelectField, SubmitField, DecimalField, BooleanField
 from wtforms.fields.html5 import DateField
-from wtforms.validators import Required
+from wtforms.validators import Required, DataRequired, InputRequired
 from flask_wtf import FlaskForm
 from datetime import *
 from decimal import *
@@ -33,7 +33,7 @@ def getCategories():
     return category_map
 
 class NewExpenseForm(FlaskForm):
-    amount = DecimalField('Amount', validators=[Required()])
+    amount = DecimalField('Amount', places=2, validators=[InputRequired()]) # not sure what places=2 is doing.....
     description = StringField('Description', validators=[Required()])
     date = DateField('Date', format='%Y-%m-%d', default = date.today(), validators=[Required()])
     choices=[]
@@ -46,19 +46,30 @@ class NewExpenseForm(FlaskForm):
 @app.route('/expenser', methods=['GET', 'POST'])
 def expenser():
     form = NewExpenseForm()
-    if form.is_submitted():
-        amt = form.amount.data
-        descr = form.description.data
-        dt = form.date.data
-        categories = getCategories()
-        category =  categories[int(form.category.data)]
-        ctg = Category.query.filter_by(name=category).first()
-        bkd = form.booked.data
-        cf = Cashflow(amount=amt, description=descr, date=dt, category=ctg, booked=bkd)
-        db.session.add(cf)
-        db.session.commit()
-        flash("Successfully submitted: {0} eur for {1} ({2}) on {3}".format(amt, descr, category, form.date.data))
-        return redirect(url_for('expenser'))
+    if request.method == "POST":
+        if form.validate_on_submit():
+            amt = form.amount.data
+            places = -amt.as_tuple().exponent
+            if places != 2:
+                TWOPLACES=Decimal('0.01')
+                amt = amt.quantize(TWOPLACES)
+                if places>2:
+                    flash("Warning: More than two decimals given for Cashflow amount. Truncating to {0}".format(amt))
+            descr = form.description.data
+            dt = form.date.data
+            categories = getCategories()
+            category =  categories[int(form.category.data)]
+            ctg = Category.query.filter_by(name=category).first()
+            bkd = form.booked.data
+            cf = Cashflow(amount=amt, description=descr, date=dt, category=ctg, booked=bkd)
+            db.session.add(cf)
+            db.session.commit()
+            flash("Successfully submitted: {0} eur for {1} ({2}) on {3}".format(amt, descr, category, form.date.data))
+            return redirect(url_for('expenser'))
+        else:
+            for error in form.errors:
+                print(error, form.errors[error])
+                flash("Error(s) for field {0}: {1} ".format(error, str(form.errors[error])))
 
     table = []
     cashflows = Cashflow.query.order_by(desc(Cashflow.date)).all()
