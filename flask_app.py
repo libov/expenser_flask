@@ -72,13 +72,14 @@ def expenser():
                 flash("Error(s) for field {0}: {1} ".format(error, str(form.errors[error])))
 
     table = []
-    cashflows = Cashflow.query.order_by(desc(Cashflow.date)).all()
-    #cashflows = Cashflow.query.paginate(1,20,False)
+    page = request.args.get('page', 1, type=int)
+    pagination = Cashflow.query.order_by(desc(Cashflow.date)).paginate(page, per_page=5, error_out=False)
+    cashflows = pagination.items
     for cf in cashflows:
         to_YesNo=lambda x: 'Yes' if x else 'No'
         row = [cf.amount, cf.description, cf.category.name, cf.date, to_YesNo(cf.booked)]
         table.append(row)
-    return render_template('expenser-boostrap.html', table=table, form=form)
+    return render_template('expenser-boostrap.html', table=table, form=form, pagination=pagination)
 
 if __name__ == '__main__':
     app.run(debug=True)
