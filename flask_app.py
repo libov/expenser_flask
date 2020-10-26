@@ -52,7 +52,6 @@ def expenser():
         dt = form.date.data
         categories = getCategories()
         category =  categories[int(form.category.data)]
-        print(category)
         ctg = Category.query.filter_by(name=category).first()
         bkd = form.booked.data
         cf = Cashflow(amount=amt, description=descr, date=dt, category=ctg, booked=bkd)
