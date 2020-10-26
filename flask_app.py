@@ -73,7 +73,7 @@ def expenser():
 
     table = []
     page = request.args.get('page', 1, type=int)
-    pagination = Cashflow.query.order_by(desc(Cashflow.date)).paginate(page, per_page=5, error_out=False)
+    pagination = Cashflow.query.order_by(desc(Cashflow.date)).paginate(page, per_page=15, error_out=False)
     cashflows = pagination.items
     for cf in cashflows:
         to_YesNo=lambda x: 'Yes' if x else 'No'
