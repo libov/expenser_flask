@@ -32,7 +32,7 @@ def getCategories():
         category_map[ctg.id]=ctg.name
     return category_map
 
-class NameForm(FlaskForm):
+class NewExpenseForm(FlaskForm):
     amount = DecimalField('Amount', validators=[Required()])
     description = StringField('Description', validators=[Required()])
     date = DateField('Date', format='%Y-%m-%d', default = date.today(), validators=[Required()])
@@ -45,7 +45,7 @@ class NameForm(FlaskForm):
 
 @app.route('/expenser', methods=['GET', 'POST'])
 def expenser():
-    form = NameForm()
+    form = NewExpenseForm()
     if form.is_submitted():
         amt = form.amount.data
         descr = form.description.data
