@@ -3,6 +3,8 @@ from flask import Flask
 import xml.etree.ElementTree as ET
 import datetime
 from datamodel import *
+import sys
+from decimal import Decimal
 
 app = Flask(__name__)
 app.app_context().push() # this is to prevent context errors
@@ -56,13 +58,20 @@ def migrate_database():
         if description == None:
             description=""
 
+        # convert Yes/No to Bool
         booked=False
         if withdrawn == "Yes":
             booked = True
 
+        # sanity check - should be exactly two digits
+        dec = amount[amount.find('.')+1:]
+        if len(dec)!=2:
+            print("ERROR: the cashflows must have exactly two digits. Cashflow amount {0} with {1} decimals (id={3})".format(amount, len(dec), expense.find("id").text))
+            sys.exit()
+
         cat = Category.query.filter_by(name=category).first()
 
-        cf = Cashflow(amount=amount, description=description, booked=booked, date=datetime.date(year, month, day), category=cat)
+        cf = Cashflow(amount=Decimal(amount), description=description, booked=booked, date=datetime.date(year, month, day), category=cat)
 
         db.session.add(cf)
 
