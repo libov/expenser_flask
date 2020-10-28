@@ -71,15 +71,20 @@ def expenser():
                 print(error, form.errors[error])
                 flash("Error(s) for field {0}: {1} ".format(error, str(form.errors[error])))
 
-    table = []
     page = request.args.get('page', 1, type=int)
     pagination = Cashflow.query.order_by(desc(Cashflow.date)).paginate(page, per_page=15, error_out=False)
     cashflows = pagination.items
-    for cf in cashflows:
-        to_YesNo=lambda x: 'Yes' if x else 'No'
-        row = [cf.amount, cf.description, cf.category.name, cf.date, to_YesNo(cf.booked)]
-        table.append(row)
-    return render_template('expenser-boostrap.html', table=table, form=form, pagination=pagination)
+
+    return render_template('expenser-boostrap.html', form=form, pagination=pagination, cashflows=cashflows)
+
+@app.route('/flipBookedFlag/<id>', methods = ['POST'])
+def flipBookedFlag(id):
+    cf = Cashflow.query.filter_by(id=id).first()
+    cf.booked = not cf.booked
+    db.session.add(cf)
+    db.session.commit()
+    print("INFO: changed booking status of Cashflow with id={0}".format(cf.id))
+    return ''
 
 if __name__ == '__main__':
     app.run(debug=True)
