@@ -69,11 +69,13 @@
 
         </thead>
         <tbody>
-        {% for row in table %}
+        {% for cf in cashflows %}
         <tr>
-            {% for cell in row %}
-            <td>{{ cell }}</td>
-            {% endfor %}
+            <td>{{cf.amount}}</td>
+            <td>{{cf.description}}</td>
+            <td>{{cf.category.name}}</td>
+            <td>{{cf.date}}</td>
+            <td><input type="checkbox" id="{{cf.id}}" name="{{cf.id}}" {% if cf.booked %} checked {% endif %} onclick="flipBookedFlag({{cf.id}})"></td>
         </tr>
         {% endfor %}
         </tbody>
@@ -84,5 +86,19 @@
         </div>
 
     </div>
+
+{% endblock %}
+
+{% block scripts %}
+
+    {{super()}}
+
+    <script>
+        function flipBookedFlag(id) {
+            var xhttp = new XMLHttpRequest();
+            xhttp.open("POST", "/flipBookedFlag/"+id, false);
+            xhttp.send();
+        }
+    </script>
 
 {% endblock %}
