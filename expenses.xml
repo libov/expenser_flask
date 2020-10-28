@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <expenses>
-  <last_expense_id>5057</last_expense_id>
+  <last_expense_id>5100</last_expense_id>
   <expense>
     <id>1</id>
     <amount>10.24</amount>
@@ -14738,18 +14738,6 @@
     <description>KABEL DEUTSCHLAND 07/2015</description>
   </expense>
   <expense>
-    <id>1234</id>
-    <amount>0</amount>
-    <date>
-      <day>23</day>
-      <month>7</month>
-      <year>2015</year>
-    </date>
-    <withdrawn>Yes</withdrawn>
-    <category>Car</category>
-    <description>REMOVE! PAYPAL AUTODOC Kulak</description>
-  </expense>
-  <expense>
     <id>1235</id>
     <amount>159.00</amount>
     <date>
@@ -15950,18 +15938,6 @@
     <description>PENNY</description>
   </expense>
   <expense>
-    <id>1335</id>
-    <amount>0</amount>
-    <date>
-      <day>11</day>
-      <month>12</month>
-      <year>2015</year>
-    </date>
-    <withdrawn>Yes</withdrawn>
-    <category>Car</category>
-    <description>AMAZON Klemmzange - RETURN</description>
-  </expense>
-  <expense>
     <id>1336</id>
     <amount>31.00</amount>
     <date>
@@ -16044,18 +16020,6 @@
     <withdrawn>Yes</withdrawn>
     <category>Food</category>
     <description>LIDL</description>
-  </expense>
-  <expense>
-    <id>1343</id>
-    <amount>0</amount>
-    <date>
-      <day>16</day>
-      <month>12</month>
-      <year>2015</year>
-    </date>
-    <withdrawn>Yes</withdrawn>
-    <category>Car</category>
-    <description>AMAZON OBD device - RETURN</description>
   </expense>
   <expense>
     <id>1344</id>
@@ -48887,7 +48851,7 @@
     </date>
     <withdrawn>Yes</withdrawn>
     <category>Presents</category>
-    <description>HandM Polina</description>
+    <description>H&M Polina</description>
   </expense>
   <expense>
     <id>4115</id>
@@ -54717,7 +54681,7 @@
       <month>9</month>
       <year>2020</year>
     </date>
-    <withdrawn>No</withdrawn>
+    <withdrawn>Yes</withdrawn>
     <category>Wilster regular</category>
     <description>MAINGAU</description>
   </expense>
@@ -54729,7 +54693,7 @@
       <month>10</month>
       <year>2020</year>
     </date>
-    <withdrawn>Yes</withdrawn>
+    <withdrawn>No</withdrawn>
     <category>Wilster regular</category>
     <description>MAINGAU</description>
   </expense>
@@ -55137,7 +55101,7 @@
       <month>10</month>
       <year>2020</year>
     </date>
-    <withdrawn>No</withdrawn>
+    <withdrawn>Yes</withdrawn>
     <category>PI Vermietung</category>
     <description>WEG </description>
   </expense>
@@ -55149,7 +55113,7 @@
       <month>11</month>
       <year>2020</year>
     </date>
-    <withdrawn>Yes</withdrawn>
+    <withdrawn>No</withdrawn>
     <category>PI Vermietung</category>
     <description>WEG </description>
   </expense>
@@ -59985,7 +59949,7 @@
       <month>10</month>
       <year>2020</year>
     </date>
-    <withdrawn>No</withdrawn>
+    <withdrawn>Yes</withdrawn>
     <category>Food</category>
     <description>NETTO</description>
   </expense>
@@ -59997,7 +59961,7 @@
       <month>10</month>
       <year>2020</year>
     </date>
-    <withdrawn>No</withdrawn>
+    <withdrawn>Yes</withdrawn>
     <category>Food</category>
     <description>NETTO</description>
   </expense>
@@ -60009,7 +59973,7 @@
       <month>10</month>
       <year>2020</year>
     </date>
-    <withdrawn>No</withdrawn>
+    <withdrawn>Yes</withdrawn>
     <category>Other</category>
     <description>ROSSMANN Briefumschlaege</description>
   </expense>
@@ -60021,7 +59985,7 @@
       <month>10</month>
       <year>2020</year>
     </date>
-    <withdrawn>No</withdrawn>
+    <withdrawn>Yes</withdrawn>
     <category>Food</category>
     <description>NETTO</description>
   </expense>
@@ -60033,7 +59997,7 @@
       <month>10</month>
       <year>2020</year>
     </date>
-    <withdrawn>No</withdrawn>
+    <withdrawn>Yes</withdrawn>
     <category>Other</category>
     <description>Amt Wilstermarsch</description>
   </expense>
@@ -60045,7 +60009,7 @@
       <month>10</month>
       <year>2020</year>
     </date>
-    <withdrawn>No</withdrawn>
+    <withdrawn>Yes</withdrawn>
     <category>Food</category>
     <description>NETTO</description>
   </expense>
@@ -60057,7 +60021,7 @@
       <month>10</month>
       <year>2020</year>
     </date>
-    <withdrawn>No</withdrawn>
+    <withdrawn>Yes</withdrawn>
     <category>Food</category>
     <description>NETTO</description>
   </expense>
@@ -60069,8 +60033,512 @@
       <month>10</month>
       <year>2020</year>
     </date>
+    <withdrawn>Yes</withdrawn>
+    <category>Car</category>
+    <description>STAR Diesel</description>
+  </expense>
+  <expense>
+    <id>5058</id>
+    <amount>26.22</amount>
+    <date>
+      <day>9</day>
+      <month>10</month>
+      <year>2020</year>
+    </date>
+    <withdrawn>Yes</withdrawn>
+    <category>Presents</category>
+    <description>EDEKA Jimmys Bday party</description>
+  </expense>
+  <expense>
+    <id>5059</id>
+    <amount>6.61</amount>
+    <date>
+      <day>10</day>
+      <month>10</month>
+      <year>2020</year>
+    </date>
+    <withdrawn>Yes</withdrawn>
+    <category>Food</category>
+    <description>EDEKA</description>
+  </expense>
+  <expense>
+    <id>5060</id>
+    <amount>209.96</amount>
+    <date>
+      <day>9</day>
+      <month>10</month>
+      <year>2020</year>
+    </date>
+    <withdrawn>Yes</withdrawn>
+    <category>Wilster</category>
+    <description>HORNBACH Heizkoerper, Material fuer Fensterinstallation retc</description>
+  </expense>
+  <expense>
+    <id>5061</id>
+    <amount>4.80</amount>
+    <date>
+      <day>10</day>
+      <month>10</month>
+      <year>2020</year>
+    </date>
+    <withdrawn>Yes</withdrawn>
+    <category>Food</category>
+    <description>BAELYERS</description>
+  </expense>
+  <expense>
+    <id>5063</id>
+    <amount>6.05</amount>
+    <date>
+      <day>13</day>
+      <month>10</month>
+      <year>2020</year>
+    </date>
+    <withdrawn>Yes</withdrawn>
+    <category>Food</category>
+    <description>EDEKA</description>
+  </expense>
+  <expense>
+    <id>5064</id>
+    <amount>8.06</amount>
+    <date>
+      <day>13</day>
+      <month>10</month>
+      <year>2020</year>
+    </date>
+    <withdrawn>Yes</withdrawn>
+    <category>Food</category>
+    <description>NETTO</description>
+  </expense>
+  <expense>
+    <id>5065</id>
+    <amount>14.43</amount>
+    <date>
+      <day>12</day>
+      <month>10</month>
+      <year>2020</year>
+    </date>
+    <withdrawn>Yes</withdrawn>
+    <category>Food</category>
+    <description>NETTO</description>
+  </expense>
+  <expense>
+    <id>5066</id>
+    <amount>26.08</amount>
+    <date>
+      <day>10</day>
+      <month>10</month>
+      <year>2020</year>
+    </date>
+    <withdrawn>Yes</withdrawn>
+    <category>Wilster</category>
+    <description>OBI</description>
+  </expense>
+  <expense>
+    <id>5067</id>
+    <amount>8.99</amount>
+    <date>
+      <day>14</day>
+      <month>10</month>
+      <year>2020</year>
+    </date>
+    <withdrawn>Yes</withdrawn>
+    <category>Food</category>
+    <description>EDEKA</description>
+  </expense>
+  <expense>
+    <id>5068</id>
+    <amount>2.45</amount>
+    <date>
+      <day>21</day>
+      <month>10</month>
+      <year>2020</year>
+    </date>
+    <withdrawn>Yes</withdrawn>
+    <category>Food</category>
+    <description>EDEKA</description>
+  </expense>
+  <expense>
+    <id>5069</id>
+    <amount>2.28</amount>
+    <date>
+      <day>20</day>
+      <month>10</month>
+      <year>2020</year>
+    </date>
+    <withdrawn>Yes</withdrawn>
+    <category>Food</category>
+    <description>EDEKA</description>
+  </expense>
+  <expense>
+    <id>5070</id>
+    <amount>5.08</amount>
+    <date>
+      <day>19</day>
+      <month>10</month>
+      <year>2020</year>
+    </date>
+    <withdrawn>Yes</withdrawn>
+    <category>Food</category>
+    <description>EDEKA</description>
+  </expense>
+  <expense>
+    <id>5071</id>
+    <amount>13.30</amount>
+    <date>
+      <day>17</day>
+      <month>10</month>
+      <year>2020</year>
+    </date>
+    <withdrawn>Yes</withdrawn>
+    <category>Food</category>
+    <description>EDEKA</description>
+  </expense>
+  <expense>
+    <id>5072</id>
+    <amount>5.63</amount>
+    <date>
+      <day>16</day>
+      <month>10</month>
+      <year>2020</year>
+    </date>
+    <withdrawn>Yes</withdrawn>
+    <category>Food</category>
+    <description>EDEKA</description>
+  </expense>
+  <expense>
+    <id>5073</id>
+    <amount>13.98</amount>
+    <date>
+      <day>16</day>
+      <month>10</month>
+      <year>2020</year>
+    </date>
+    <withdrawn>Yes</withdrawn>
+    <category>Food</category>
+    <description>EDEKA</description>
+  </expense>
+  <expense>
+    <id>5074</id>
+    <amount>4.37</amount>
+    <date>
+      <day>15</day>
+      <month>10</month>
+      <year>2020</year>
+    </date>
+    <withdrawn>Yes</withdrawn>
+    <category>Food</category>
+    <description>EDEKA</description>
+  </expense>
+  <expense>
+    <id>5075</id>
+    <amount>8.65</amount>
+    <date>
+      <day>20</day>
+      <month>10</month>
+      <year>2020</year>
+    </date>
+    <withdrawn>Yes</withdrawn>
+    <category>Food</category>
+    <description>NETTO</description>
+  </expense>
+  <expense>
+    <id>5076</id>
+    <amount>5.97</amount>
+    <date>
+      <day>22</day>
+      <month>10</month>
+      <year>2020</year>
+    </date>
+    <withdrawn>No</withdrawn>
+    <category>Food</category>
+    <description>NETTO</description>
+  </expense>
+  <expense>
+    <id>5077</id>
+    <amount>16.07</amount>
+    <date>
+      <day>16</day>
+      <month>10</month>
+      <year>2020</year>
+    </date>
+    <withdrawn>Yes</withdrawn>
+    <category>Car</category>
+    <description>STAR Diesel</description>
+  </expense>
+  <expense>
+    <id>5078</id>
+    <amount>15.29</amount>
+    <date>
+      <day>19</day>
+      <month>10</month>
+      <year>2020</year>
+    </date>
+    <withdrawn>Yes</withdrawn>
+    <category>Car</category>
+    <description>STAR Diesel</description>
+  </expense>
+  <expense>
+    <id>5079</id>
+    <amount>160.01</amount>
+    <date>
+      <day>16</day>
+      <month>10</month>
+      <year>2020</year>
+    </date>
+    <withdrawn>Yes</withdrawn>
+    <category>Wilster</category>
+    <description>HORNBACH</description>
+  </expense>
+  <expense>
+    <id>5080</id>
+    <amount>18.00</amount>
+    <date>
+      <day>16</day>
+      <month>10</month>
+      <year>2020</year>
+    </date>
+    <withdrawn>Yes</withdrawn>
+    <category>Other</category>
+    <description>Konsulat</description>
+  </expense>
+  <expense>
+    <id>5081</id>
+    <amount>185.00</amount>
+    <date>
+      <day>16</day>
+      <month>10</month>
+      <year>2020</year>
+    </date>
+    <withdrawn>Yes</withdrawn>
+    <category>Other</category>
+    <description>Konsulat</description>
+  </expense>
+  <expense>
+    <id>5082</id>
+    <amount>81.76</amount>
+    <date>
+      <day>17</day>
+      <month>10</month>
+      <year>2020</year>
+    </date>
+    <withdrawn>Yes</withdrawn>
+    <category>Wilster</category>
+    <description>OBI Tuerzarge</description>
+  </expense>
+  <expense>
+    <id>5083</id>
+    <amount>12.56</amount>
+    <date>
+      <day>17</day>
+      <month>10</month>
+      <year>2020</year>
+    </date>
+    <withdrawn>Yes</withdrawn>
+    <category>Wilster</category>
+    <description>OBI Schluesselsatz etc.</description>
+  </expense>
+  <expense>
+    <id>5084</id>
+    <amount>3.17</amount>
+    <date>
+      <day>23</day>
+      <month>10</month>
+      <year>2020</year>
+    </date>
+    <withdrawn>No</withdrawn>
+    <category>Food</category>
+    <description>EDEKA</description>
+  </expense>
+  <expense>
+    <id>5085</id>
+    <amount>1.21</amount>
+    <date>
+      <day>22</day>
+      <month>10</month>
+      <year>2020</year>
+    </date>
+    <withdrawn>No</withdrawn>
+    <category>Food</category>
+    <description>EDEKA</description>
+  </expense>
+  <expense>
+    <id>5086</id>
+    <amount>2.33</amount>
+    <date>
+      <day>23</day>
+      <month>10</month>
+      <year>2020</year>
+    </date>
+    <withdrawn>No</withdrawn>
+    <category>Food</category>
+    <description>EDEKA</description>
+  </expense>
+  <expense>
+    <id>5087</id>
+    <amount>10.24</amount>
+    <date>
+      <day>24</day>
+      <month>10</month>
+      <year>2020</year>
+    </date>
+    <withdrawn>No</withdrawn>
+    <category>Food</category>
+    <description>EDEKA</description>
+  </expense>
+  <expense>
+    <id>5088</id>
+    <amount>4.40</amount>
+    <date>
+      <day>26</day>
+      <month>10</month>
+      <year>2020</year>
+    </date>
+    <withdrawn>No</withdrawn>
+    <category>Food</category>
+    <description>EDEKA</description>
+  </expense>
+  <expense>
+    <id>5089</id>
+    <amount>3.02</amount>
+    <date>
+      <day>24</day>
+      <month>10</month>
+      <year>2020</year>
+    </date>
+    <withdrawn>No</withdrawn>
+    <category>Food</category>
+    <description>NETTO</description>
+  </expense>
+  <expense>
+    <id>5090</id>
+    <amount>10.51</amount>
+    <date>
+      <day>23</day>
+      <month>10</month>
+      <year>2020</year>
+    </date>
+    <withdrawn>No</withdrawn>
+    <category>Food</category>
+    <description>NETTO</description>
+  </expense>
+  <expense>
+    <id>5091</id>
+    <amount>20.00</amount>
+    <date>
+      <day>26</day>
+      <month>10</month>
+      <year>2020</year>
+    </date>
+    <withdrawn>No</withdrawn>
+    <category>Travel</category>
+    <description>VERWARNUNG</description>
+  </expense>
+  <expense>
+    <id>5092</id>
+    <amount>1.63</amount>
+    <date>
+      <day>27</day>
+      <month>10</month>
+      <year>2020</year>
+    </date>
+    <withdrawn>No</withdrawn>
+    <category>Food</category>
+    <description>NETTO</description>
+  </expense>
+  <expense>
+    <id>5093</id>
+    <amount>255.20</amount>
+    <date>
+      <day>27</day>
+      <month>10</month>
+      <year>2020</year>
+    </date>
+    <withdrawn>No</withdrawn>
+    <category>Wilster</category>
+    <description>HAUPTHOFF Tuer, Zarge</description>
+  </expense>
+  <expense>
+    <id>5094</id>
+    <amount>9.60</amount>
+    <date>
+      <day>25</day>
+      <month>10</month>
+      <year>2020</year>
+    </date>
+    <withdrawn>No</withdrawn>
+    <category>Restaurant</category>
+    <description>EssBahn Doener</description>
+  </expense>
+  <expense>
+    <id>5095</id>
+    <amount>30.00</amount>
+    <date>
+      <day>25</day>
+      <month>10</month>
+      <year>2020</year>
+    </date>
     <withdrawn>No</withdrawn>
     <category>Car</category>
     <description>STAR Diesel</description>
+  </expense>
+  <expense>
+    <id>5096</id>
+    <amount>7.55</amount>
+    <date>
+      <day>24</day>
+      <month>10</month>
+      <year>2020</year>
+    </date>
+    <withdrawn>No</withdrawn>
+    <category>Wilster</category>
+    <description>OBI</description>
+  </expense>
+  <expense>
+    <id>5097</id>
+    <amount>35.81</amount>
+    <date>
+      <day>24</day>
+      <month>10</month>
+      <year>2020</year>
+    </date>
+    <withdrawn>No</withdrawn>
+    <category>Wilster</category>
+    <description>HORNBACH</description>
+  </expense>
+  <expense>
+    <id>5098</id>
+    <amount>19.24</amount>
+    <date>
+      <day>24</day>
+      <month>10</month>
+      <year>2020</year>
+    </date>
+    <withdrawn>No</withdrawn>
+    <category>Wilster</category>
+    <description>HORNBACH</description>
+  </expense>
+  <expense>
+    <id>5099</id>
+    <amount>77.97</amount>
+    <date>
+      <day>24</day>
+      <month>10</month>
+      <year>2020</year>
+    </date>
+    <withdrawn>No</withdrawn>
+    <category>Wilster</category>
+    <description>OBI</description>
+  </expense>
+  <expense>
+    <id>5100</id>
+    <amount>4.80</amount>
+    <date>
+      <day>25</day>
+      <month>10</month>
+      <year>2020</year>
+    </date>
+    <withdrawn>No</withdrawn>
+    <category>Food</category>
+    <description>Balzers</description>
   </expense>
 </expenses>
