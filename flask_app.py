@@ -92,7 +92,7 @@ def calculateBalance():
         bkd = res[0]
         amt = res[1]
         if bkd == True:
-            return 287.27+amt # TODO: starting balance shouldn't be hard-coded
+            return str(Decimal(str(287.27))+amt) # TODO: starting balance shouldn't be hard-coded
     return 0
 
 if __name__ == '__main__':
