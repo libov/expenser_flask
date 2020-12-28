@@ -5,6 +5,7 @@ import datetime
 from datamodel import *
 import sys
 from decimal import Decimal
+import requests
 
 app = Flask(__name__)
 app.app_context().push() # this is to prevent context errors
@@ -21,11 +22,9 @@ def initialise_database():
     db.create_all()
 
 def load_expenses():
-    
-    # read the source XML-database
-    tree = ET.parse('data/old_app/expenses.xml')
-    root = tree.getroot()
-    i=0
+    # download the XML-database directly from github and parse it
+    req = requests.get('https://github.com/libov/expenser/raw/master/data/expenses.xml')
+    root = ET.fromstring(req.text)
 
     # as the first step we need to write the categories, because it is used
     # as a foreign key
@@ -72,8 +71,8 @@ def load_expenses():
             
         # sanity check - only positive amounts were accepted in the old app
         if Decimal(amount) < 0:
-            print("ERROR: expecting positive amounts")
-            sys.abort()
+            print("WARNING: negative amount found")
+            print("\t", expense.find("id").text, description, amount)
 
         cat = Category.query.filter_by(name=category).first()
 
@@ -82,16 +81,10 @@ def load_expenses():
 
         db.session.add(cf)
 
-        i+=1
-        print(amount, category, description)
-        if i == 10:
-            break
-
 def load_incomes():
-    # read the source XML-database
-    tree = ET.parse('data/old_app/incomes.xml')
-    root = tree.getroot()
-    i=0
+    # download the XML-database directly from github and parse it
+    req = requests.get('https://github.com/libov/expenser/raw/master/data/incomes.xml')
+    root = ET.fromstring(req.text)
     
     # as with the expenses, first need to handle the categories
     # TODO: proper category treatment (a map description -> category; also need a check whether category exists already!)
@@ -111,11 +104,6 @@ def load_incomes():
         cf = Cashflow(amount=Decimal(amount), description=description, booked=True, date=datetime.date(year, month, 1), category=cat)
 
         db.session.add(cf)
-
-        i+=1
-        print(amount, description)
-        if i == 10:
-            break
 
 if __name__ == '__main__':
 
