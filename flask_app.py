@@ -1,6 +1,6 @@
 from flask import Flask, request, render_template, redirect, url_for, flash
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import desc
+from sqlalchemy import desc, func
 from wtforms import StringField, SelectField, SubmitField, DecimalField, BooleanField
 from wtforms.fields.html5 import DateField
 from wtforms.validators import Required, DataRequired, InputRequired
@@ -75,7 +75,7 @@ def expenser():
     pagination = Cashflow.query.order_by(desc(Cashflow.date)).paginate(page, per_page=15, error_out=False)
     cashflows = pagination.items
 
-    return render_template('expenser-boostrap.html', form=form, pagination=pagination, cashflows=cashflows)
+    return render_template('expenser-boostrap.html', form=form, pagination=pagination, cashflows=cashflows, balance=calculateBalance())
 
 @app.route('/flipBookedFlag/<id>', methods = ['POST'])
 def flipBookedFlag(id):
@@ -85,6 +85,15 @@ def flipBookedFlag(id):
     db.session.commit()
     print("INFO: changed booking status of Cashflow with id={0}".format(cf.id))
     return ''
+
+def calculateBalance():
+    result=Cashflow.query.with_entities(Cashflow.booked, func.sum(Cashflow.amount)).group_by(Cashflow.booked).all()
+    for res in result:
+        bkd = res[0]
+        amt = res[1]
+        if bkd == True:
+            return amt
+    return 0
 
 if __name__ == '__main__':
     app.run(debug=True)
