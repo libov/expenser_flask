@@ -16,13 +16,14 @@ db.init_app(app)
 app.config['SECRET_KEY'] = 'hard to guess string'
 
 def initialise_database():
+    # TODO: some safety mechanism to prevent accidental database overwrites!
     db.drop_all()
     db.create_all()
 
-def migrate_database():
+def load_expenses():
     
     # read the source XML-database
-    tree = ET.parse('expenses.xml')
+    tree = ET.parse('data/old_app/expenses.xml')
     root = tree.getroot()
     i=0
 
@@ -68,15 +69,57 @@ def migrate_database():
         if len(dec)!=2:
             print("ERROR: the cashflows must have exactly two digits. Cashflow amount {0} with {1} decimals (id={3})".format(amount, len(dec), expense.find("id").text))
             sys.exit()
+            
+        # sanity check - only positive amounts were accepted in the old app
+        if Decimal(amount) < 0:
+            print("ERROR: expecting positive amounts")
+            sys.abort()
 
         cat = Category.query.filter_by(name=category).first()
 
-        cf = Cashflow(amount=Decimal(amount), description=description, booked=booked, date=datetime.date(year, month, day), category=cat)
+        # note: the amount is reversed because now expenses and incomes are treated equally (up to a sign)
+        cf = Cashflow(amount=-Decimal(amount), description=description, booked=booked, date=datetime.date(year, month, day), category=cat)
 
         db.session.add(cf)
+
+        i+=1
+        print(amount, category, description)
+        if i == 10:
+            break
+
+def load_incomes():
+    # read the source XML-database
+    tree = ET.parse('data/old_app/incomes.xml')
+    root = tree.getroot()
+    i=0
+    
+    # as with the expenses, first need to handle the categories
+    # TODO: proper category treatment (a map description -> category; also need a check whether category exists already!)
+    cat = Category(name="income")
+    db.session.add(cat)
+    
+    for income in root:
+        if income.tag != "entry": continue
+        amount = income.find("amount").text
+        month = int(income.find("date/month").text)
+        year = int(income.find("date/year").text)
+        description =  income.find("description").text
+
+        # TODO: here use the mapping description -> category
+        #cat = Category.query.filter_by(name=category).first()
+
+        cf = Cashflow(amount=Decimal(amount), description=description, booked=True, date=datetime.date(year, month, 1), category=cat)
+
+        db.session.add(cf)
+
+        i+=1
+        print(amount, description)
+        if i == 10:
+            break
 
 if __name__ == '__main__':
 
     initialise_database()
-    migrate_database()
+    load_expenses()
+    load_incomes()
     db.session.commit()
