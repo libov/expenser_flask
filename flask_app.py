@@ -1,6 +1,6 @@
 from flask import Flask, request, render_template, redirect, url_for, flash
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import desc, func
+from sqlalchemy import desc, func, and_
 from wtforms import StringField, SelectField, SubmitField, DecimalField, BooleanField
 from wtforms.fields.html5 import DateField
 from wtforms.validators import Required, DataRequired, InputRequired
@@ -45,11 +45,23 @@ class NewExpenseForm(FlaskForm):
     booked = BooleanField('Booked', default=False )
     submit = SubmitField('Submit')
 
+class FilterForm(FlaskForm):
+    descriptionContains = StringField('Description contains')
+    dateFrom = DateField('Date From', format='%Y-%m-%d')
+    dateTo = DateField('Date From', format='%Y-%m-%d')
+    choices=[]
+    for id, name in getCategories().items():
+        choices.append([id, name])
+    choices.append([999, "Any"])
+    category = SelectField('Category', choices=choices, default=999)
+    booked = BooleanField('Booked', default=True)
+    filter = SubmitField('Filter')
+
 @app.route('/expenser', methods=['GET', 'POST'])
 def expenser():
     form = NewExpenseForm()
-    if request.method == "POST":
-        if form.validate_on_submit():
+    if request.method == "POST" and form.submit.data:
+        if form.validate():
             amt = form.amount.data
             places = -amt.as_tuple().exponent
             if places != 2:
@@ -74,12 +86,28 @@ def expenser():
                 flash("Error(s) for field {0}: {1} ".format(error, str(form.errors[error])))
 
     per_page = request.args.get('per_page', 10, type=int)
+    cfq = Cashflow.query
+
+    filterForm = FilterForm()
+    if request.method == "POST":
+        if filterForm.is_submitted():
+            if (filterForm.dateFrom.data):
+                cfq = cfq.filter(Cashflow.date >= filterForm.dateFrom.data)
+            if (filterForm.dateTo.data):
+                cfq = cfq.filter(Cashflow.date <= filterForm.dateTo.data)
+            cfq =  cfq.filter(Cashflow.booked == filterForm.booked.data)
+            if (filterForm.descriptionContains.data):
+                cfq = cfq.filter(Cashflow.description.contains(filterForm.descriptionContains.data))
+            if (filterForm.category.data != '999'):
+                ctg = Category.query.filter_by(id=filterForm.category.data).first()
+                cfq = cfq.filter(Cashflow.category == ctg)
+
 
     page = request.args.get('page', 1, type=int)
-    pagination = Cashflow.query.order_by(desc(Cashflow.date)).paginate(page, per_page=per_page, error_out=False)
+    pagination = cfq.order_by(desc(Cashflow.date)).paginate(page, per_page=per_page, error_out=False)
     cashflows = pagination.items
 
-    return render_template('expenser-boostrap.html', form=form, pagination=pagination, cashflows=cashflows, balance=calculateBalance(), per_page=per_page, per_page_options=per_page_options)
+    return render_template('expenser-boostrap.html', form=form, FilterForm=filterForm, pagination=pagination, cashflows=cashflows, balance=calculateBalance(), per_page=per_page, per_page_options=per_page_options)
 
 @app.route('/flipBookedFlag/<id>', methods = ['POST'])
 def flipBookedFlag(id):

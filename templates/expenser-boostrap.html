@@ -55,6 +55,14 @@
             {{ form.booked.label }} {{ form.booked() }}
             {{ form.submit() }}
         </form>
+        <form method="POST">
+            {{ FilterForm.descriptionContains.label }} {{ FilterForm.descriptionContains() }}
+            {{ FilterForm.category.label }} {{ FilterForm.category() }}
+            {{ FilterForm.dateFrom.label }} {{ FilterForm.dateFrom() }}
+            {{ FilterForm.dateTo.label }} {{ FilterForm.dateTo() }}
+            {{ FilterForm.booked.label }} {{ FilterForm.booked() }}
+            {{ FilterForm.filter() }}
+        </form>
         <form>
             <label for="per_page">Per page</label>
             <select name="per_page" id="per_page" onchange="submit()">
