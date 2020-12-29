@@ -35,17 +35,13 @@
 
     <div class="container-fluid">
     <!--div class="container"-->
-        <div class="page-header">
-            <h1>Cashflows</h1>
-        </div>
-    
         {% for message in get_flashed_messages() %}
         <div class="alert alert-warning">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
             {{ message }}
         </div>
         {% endfor %}
-    
+        <h4>New Cashflow</h4>
         <form method="POST">
             {{ form.hidden_tag() }}
             {{ form.amount.label }} {{ form.amount() }}
@@ -55,6 +51,8 @@
             {{ form.booked.label }} {{ form.booked() }}
             {{ form.submit() }}
         </form>
+        <hr>
+        <h4>Filtering</h4>
         <form method="POST">
             {{ FilterForm.descriptionContains.label }} {{ FilterForm.descriptionContains() }}
             {{ FilterForm.category.label }} {{ FilterForm.category() }}
@@ -63,6 +61,7 @@
             {{ FilterForm.booked.label }} {{ FilterForm.booked() }}
             {{ FilterForm.filter() }}
         </form>
+        <hr>
         <form>
             <label for="per_page">Per page</label>
             <select name="per_page" id="per_page" onchange="submit()">
@@ -73,7 +72,7 @@
          </form>
         <!--{{ wtf.quick_form(form) }}-->
         <hr>
-        Balance: {{balance}}
+        <h4>Balance: {{balance}}</h4>
         <table class="table table-striped table-hover" >
         <thead class="thead-dark">
         <tr>
