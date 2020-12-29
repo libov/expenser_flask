@@ -55,6 +55,14 @@
             {{ form.booked.label }} {{ form.booked() }}
             {{ form.submit() }}
         </form>
+        <form>
+            <label for="per_page">Per page</label>
+            <select name="per_page" id="per_page" onchange="submit()">
+            {% for pp in per_page_options %}
+                <option{% if pp==per_page %} selected="selected" {% endif %}>{{pp}}</option>
+            {% endfor %}
+            </select>
+         </form>
         <!--{{ wtf.quick_form(form) }}-->
         <hr>
         Balance: {{balance}}

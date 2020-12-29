@@ -24,6 +24,8 @@ app.config['SECRET_KEY'] = 'hard to guess string'
 
 bootstrap = Bootstrap(app)
 
+per_page_options=[5,10,15,20,25,30,50,100]
+
 def getCategories():
     category_map={}
     categories = Category.query.all()
@@ -71,11 +73,13 @@ def expenser():
                 print(error, form.errors[error])
                 flash("Error(s) for field {0}: {1} ".format(error, str(form.errors[error])))
 
+    per_page = request.args.get('per_page', 10, type=int)
+
     page = request.args.get('page', 1, type=int)
-    pagination = Cashflow.query.order_by(desc(Cashflow.date)).paginate(page, per_page=15, error_out=False)
+    pagination = Cashflow.query.order_by(desc(Cashflow.date)).paginate(page, per_page=per_page, error_out=False)
     cashflows = pagination.items
 
-    return render_template('expenser-boostrap.html', form=form, pagination=pagination, cashflows=cashflows, balance=calculateBalance())
+    return render_template('expenser-boostrap.html', form=form, pagination=pagination, cashflows=cashflows, balance=calculateBalance(), per_page=per_page, per_page_options=per_page_options)
 
 @app.route('/flipBookedFlag/<id>', methods = ['POST'])
 def flipBookedFlag(id):
