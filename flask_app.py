@@ -53,9 +53,12 @@ class FilterForm(FlaskForm):
     for id, name in getCategories().items():
         choices.append([id, name])
     choices.append([999, "Any"])
-    category = SelectField('Category', choices=choices, default=999)
-    booked = BooleanField('Booked', default=True)
+    category = SelectField('Category', choices=choices)
+    booked = SelectField('Booked', choices=[[1, "Yes"], [2, "No"], [3, "Any"]])
     filter = SubmitField('Filter')
+
+def toDate(dateString):
+    return datetime.strptime(dateString, "%Y-%m-%d").date()
 
 @app.route('/expenser', methods=['GET', 'POST'])
 def expenser():
@@ -86,28 +89,43 @@ def expenser():
                 flash("Error(s) for field {0}: {1} ".format(error, str(form.errors[error])))
 
     per_page = request.args.get('per_page', 10, type=int)
+
+    descriptionContains = request.args.get('descriptionContains', None, type=str)
+    category = request.args.get('category', None, type=int)
+    dateFrom = request.args.get('dateFrom', None, type = toDate)
+    dateTo = request.args.get('dateTo', None, type = toDate)
+    booked = request.args.get('booked', None, type = int)
+
     cfq = Cashflow.query
 
-    filterForm = FilterForm()
-    if request.method == "POST":
-        if filterForm.is_submitted():
-            if (filterForm.dateFrom.data):
-                cfq = cfq.filter(Cashflow.date >= filterForm.dateFrom.data)
-            if (filterForm.dateTo.data):
-                cfq = cfq.filter(Cashflow.date <= filterForm.dateTo.data)
-            cfq =  cfq.filter(Cashflow.booked == filterForm.booked.data)
-            if (filterForm.descriptionContains.data):
-                cfq = cfq.filter(Cashflow.description.contains(filterForm.descriptionContains.data))
-            if (filterForm.category.data != '999'):
-                ctg = Category.query.filter_by(id=filterForm.category.data).first()
-                cfq = cfq.filter(Cashflow.category == ctg)
-
+    if dateTo:
+        cfq = cfq.filter(Cashflow.date <= dateTo)
+    if dateFrom:
+        cfq = cfq.filter(Cashflow.date >= dateFrom)
+    if booked:
+        if booked != 3:
+            if booked == 1:
+                booked=True
+            elif booked == 2:
+                booked=False
+            cfq =  cfq.filter(Cashflow.booked == booked)
+    if descriptionContains:
+        cfq = cfq.filter(Cashflow.description.contains(descriptionContains))
+    if category:
+        if (category != 999):
+            ctg = Category.query.filter_by(id=category).first()
+            cfq = cfq.filter(Cashflow.category == ctg)
 
     page = request.args.get('page', 1, type=int)
     pagination = cfq.order_by(desc(Cashflow.date)).paginate(page, per_page=per_page, error_out=False)
     cashflows = pagination.items
-
-    return render_template('expenser-boostrap.html', form=form, FilterForm=filterForm, pagination=pagination, cashflows=cashflows, balance=calculateBalance(), per_page=per_page, per_page_options=per_page_options)
+    if not category:
+        category = 999
+    if not booked:
+        booked = 3
+    filterForm = FilterForm(descriptionContains=descriptionContains, category=category, dateFrom=dateFrom, dateTo=dateTo, booked=booked)
+    return render_template('expenser-boostrap.html', form=form, FilterForm=filterForm, pagination=pagination, cashflows=cashflows, balance=calculateBalance(), per_page=per_page, per_page_options=per_page_options,
+                           descriptionContains=descriptionContains, category=category, dateFrom=dateFrom, dateTo=dateTo, booked=booked)
 
 @app.route('/flipBookedFlag/<id>', methods = ['POST'])
 def flipBookedFlag(id):

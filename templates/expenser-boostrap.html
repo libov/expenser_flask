@@ -53,7 +53,7 @@
         </form>
         <hr>
         <h4>Filtering</h4>
-        <form method="POST">
+        <form>
             {{ FilterForm.descriptionContains.label }} {{ FilterForm.descriptionContains() }}
             {{ FilterForm.category.label }} {{ FilterForm.category() }}
             {{ FilterForm.dateFrom.label }} {{ FilterForm.dateFrom() }}
@@ -98,7 +98,7 @@
         </table>
 
         <div class="pagination">
-            {{ macros.pagination_widget(pagination, '.expenser', per_page=per_page) }}
+            {{ macros.pagination_widget(pagination, '.expenser', per_page=per_page, descriptionContains=descriptionContains, category=category, dateFrom=dateFrom, dateTo=dateTo, booked=booked) }}
         </div>
 
     </div>
