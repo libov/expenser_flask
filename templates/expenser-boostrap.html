@@ -60,6 +60,7 @@
             {{ FilterForm.dateTo.label }} {{ FilterForm.dateTo() }}
             {{ FilterForm.booked.label }} {{ FilterForm.booked() }}
             {{ FilterForm.filter() }}
+            <input type="hidden" name="per_page" value={{per_page}}>
         </form>
         <hr>
         <form>

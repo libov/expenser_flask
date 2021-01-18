@@ -62,6 +62,8 @@ def toDate(dateString):
 
 @app.route('/expenser', methods=['GET', 'POST'])
 def expenser():
+    per_page = request.args.get('per_page', 10, type=int)
+
     form = NewExpenseForm()
     if request.method == "POST" and form.submit.data:
         if form.validate():
@@ -82,13 +84,11 @@ def expenser():
             db.session.add(cf)
             db.session.commit()
             flash("Successfully submitted: {0} eur for {1} ({2}) on {3}".format(amt, descr, category, form.date.data))
-            return redirect(url_for('expenser'))
+            return redirect(url_for('expenser')+'?per_page='+str(per_page))
         else:
             for error in form.errors:
                 print(error, form.errors[error])
                 flash("Error(s) for field {0}: {1} ".format(error, str(form.errors[error])))
-
-    per_page = request.args.get('per_page', 10, type=int)
 
     descriptionContains = request.args.get('descriptionContains', None, type=str)
     category = request.args.get('category', None, type=int)
