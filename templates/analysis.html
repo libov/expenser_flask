@@ -1,0 +1,67 @@
+{% extends "bootstrap/base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% import "_macros.html" as macros %}
+
+{% block title %}The Expenser App{% endblock %}
+
+{% block navbar %}
+    <div class="navbar navbar-inverse" role="navigation">
+    <!--div class="navbar navbar-fixed-top"-->
+    
+        <div class="container">
+
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar">dd</span>
+                    <span class="icon-bar"dd></span>
+                    <span class="icon-bar">dd</span>
+                </button>
+                <!--a class="navbar-brand" href="/expenser">Expenser</a-->
+            </div>
+
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li><a href="/expenser">Cashflows</a></li>
+                    <li><a href="/analysis">Analysis</a></li>
+                </ul>
+            </div>
+
+        </div>
+    </div>
+{% endblock %}
+
+{% block content %}
+              <div class="col-md-4 box text-white box blues">
+                  <div class="box-home">
+                    <h1>Month by category</h1>
+                    <form method="GET">
+                        {{ month_by_category_form.month() }}
+                        {{ month_by_category_form.year() }}
+                        {{ month_by_category_form.select() }}
+                    </form>
+                    <img src="/MonthByCategory.png?year={{year}}&month={{month}}" alt="my plot">
+                  </div>
+              </div>
+              <div class="col-md-4 text-white box bg-city blacks">
+                  <div class="box-home">
+                    <h1>Year by month</h1>
+                    <img src="/" alt="my plot">
+                  </div>
+              </div>
+
+{% endblock %}
+
+{% block scripts %}
+
+    {{super()}}
+
+    <script>
+        function flipBookedFlag(id) {
+            var xhttp = new XMLHttpRequest();
+            xhttp.open("POST", "/flipBookedFlag/"+id, false);
+            xhttp.send();
+        }
+    </script>
+
+{% endblock %}
