@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template, redirect, url_for, flash
+from flask import Flask, request, render_template, redirect, url_for, flash, Response
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import desc, func, and_
 from wtforms import StringField, SelectField, SubmitField, DecimalField, BooleanField
@@ -9,6 +9,11 @@ from datetime import *
 from decimal import *
 import numpy as np
 from flask_bootstrap import Bootstrap
+import io
+import random
+from calendar import month_name
+from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
+from matplotlib.figure import Figure
 
 from datamodel import *
  
@@ -21,6 +26,8 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db.init_app(app)
 
 app.config['SECRET_KEY'] = 'hard to guess string'
+
+N_YEARS = 10
 
 bootstrap = Bootstrap(app)
 
@@ -43,7 +50,7 @@ class NewExpenseForm(FlaskForm):
         choices.append([id, name])
     category = SelectField('Category', choices=choices)
     booked = BooleanField('Booked', default=False )
-    submit = SubmitField('Submit')
+    submit = SubmitField('Add Cashflow')
 
 class FilterForm(FlaskForm):
     descriptionContains = StringField('Description contains')
@@ -56,6 +63,16 @@ class FilterForm(FlaskForm):
     category = SelectField('Category', choices=choices)
     booked = SelectField('Booked', choices=[[1, "Yes"], [2, "No"], [3, "Any"]])
     filter = SubmitField('Filter')
+
+class MonthByCategoryForm(FlaskForm):
+    cur_year = datetime.now().year
+    cur_month = datetime.now().month
+    choices=[]
+    for m in range(1, len(month_name)):
+        choices.append((m, month_name[m]))
+    month = SelectField('Month', choices=choices, default=month_name[cur_month])
+    year = SelectField('Year', choices=list(range(cur_year, cur_year-N_YEARS,-1)), default=cur_year)
+    select = SubmitField('Select')
 
 def toDate(dateString):
     return datetime.strptime(dateString, "%Y-%m-%d").date()
@@ -144,6 +161,43 @@ def calculateBalance():
         if bkd == True:
             return str(Decimal(str(287.27))+amt) # TODO: starting balance shouldn't be hard-coded
     return 0
+
+@app.route('/MonthByCategory.png')
+def plot_png():
+    dtn = datetime.now()
+    year = request.args.get('year', dtn.year, type=int)
+    month = request.args.get('month', month_name[dtn.month], type=str)
+    fig = plotMonthByCategory(year, month)
+    output = io.BytesIO()
+    FigureCanvas(fig).print_png(output)
+    return Response(output.getvalue(), mimetype='image/png')
+
+def plotMonthByCategory(year, month):
+    fig = Figure()
+    cfq = Cashflow.query
+    cfq = cfq.filter(func.extract('year',Cashflow.date) == year)
+    cfq = cfq.filter(func.extract('month',Cashflow.date) == month)
+    aa=cfq.all()
+    print(aa)
+    result=cfq.with_entities(Cashflow.category_id, func.sum(Cashflow.amount)).group_by(Cashflow.category_id).all()
+    x=[]
+    y=[]
+    print(result)
+    for res in result:
+        x.append(res[0])
+        y.append(res[1])
+    axis = fig.add_subplot(1, 1, 1)
+    print(x)
+    print(y)
+    axis.bar(x, y)
+    return fig
+
+@app.route('/analysis', methods=['GET'])
+def analysis():
+    year = request.args.get('year', datetime.now().year, type=int)
+    month = request.args.get('month', datetime.now().month, type=str)
+    month_by_category_form = MonthByCategoryForm(year=year, month=month)
+    return render_template("analysis.html", month_by_category_form=month_by_category_form, year=year, month=month)
 
 if __name__ == '__main__':
     app.run(debug=True)
