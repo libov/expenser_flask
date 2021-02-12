@@ -97,7 +97,9 @@ def expenser():
             category =  categories[int(form.category.data)]
             ctg = Category.query.filter_by(name=category).first()
             bkd = form.booked.data
-            cf = Cashflow(amount=amt, description=descr, date=dt, category=ctg, booked=bkd)
+            # Note, that the amt sign is flipped, to avoid the need of entering "-" for every expense.
+            # The incomes have then to be entered with "-"
+            cf = Cashflow(amount=-amt, description=descr, date=dt, category=ctg, booked=bkd)
             db.session.add(cf)
             db.session.commit()
             flash("Successfully submitted: {0} eur for {1} ({2}) on {3}".format(amt, descr, category, form.date.data))
