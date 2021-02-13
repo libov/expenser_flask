@@ -87,9 +87,11 @@ def load_incomes():
     root = ET.fromstring(req.text)
     
     # as with the expenses, first need to handle the categories
-    # TODO: proper category treatment (a map description -> category; also need a check whether category exists already!)
-    cat = Category(name="income")
-    db.session.add(cat)
+    categories = Category.query.all()
+
+    cats=[]
+    for ctg in categories:
+        cats.append(ctg.name)
     
     for income in root:
         if income.tag != "entry": continue
@@ -97,9 +99,15 @@ def load_incomes():
         month = int(income.find("date/month").text)
         year = int(income.find("date/year").text)
         description =  income.find("description").text
+        category = income.find("category").text
 
-        # TODO: here use the mapping description -> category
-        #cat = Category.query.filter_by(name=category).first()
+        if not category in cats:
+            print("WARNING: discovered an unseen category, ", category, ". Adding to the database")
+            new_ctg = Category(name=category)
+            db.session.add(new_ctg)
+            cats.append(category)
+
+        cat = Category.query.filter_by(name=category).first()
 
         cf = Cashflow(amount=Decimal(amount), description=description, booked=True, date=datetime.date(year, month, 1), category=cat)
 
