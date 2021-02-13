@@ -48,7 +48,7 @@ class NewExpenseForm(FlaskForm):
     choices=[]
     for id, name in getCategories().items():
         choices.append([id, name])
-    category = SelectField('Category', choices=choices)
+    category = SelectField('Category', choices=choices, coerce=int)
     booked = BooleanField('Booked', default=False )
     submit = SubmitField('Add Cashflow')
 
