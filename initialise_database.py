@@ -6,11 +6,12 @@ from datamodel import *
 import sys
 from decimal import Decimal
 import requests
+import os
 
 app = Flask(__name__)
 app.app_context().push() # this is to prevent context errors
 
-app.config['SQLALCHEMY_DATABASE_URI'] ='mysql+pymysql://testuser:testpassword@localhost/expenses'
+app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('SQLALCHEMY_DATABASE_URI')
 app.config['SQLALCHEMY_COMMIT_ON_TEARDOWN'] = True
 db.init_app(app)
 
@@ -68,7 +69,7 @@ def load_expenses():
         if len(dec)!=2:
             print("ERROR: the cashflows must have exactly two digits. Cashflow amount {0} with {1} decimals (id={3})".format(amount, len(dec), expense.find("id").text))
             sys.exit()
-            
+
         # sanity check - only positive amounts were accepted in the old app
         if Decimal(amount) < 0:
             print("WARNING: negative amount found")
@@ -85,14 +86,14 @@ def load_incomes():
     # download the XML-database directly from github and parse it
     req = requests.get('https://github.com/libov/expenser/raw/master/data/incomes.xml')
     root = ET.fromstring(req.text)
-    
+
     # as with the expenses, first need to handle the categories
     categories = Category.query.all()
 
     cats=[]
     for ctg in categories:
         cats.append(ctg.name)
-    
+
     for income in root:
         if income.tag != "entry": continue
         amount = income.find("amount").text
